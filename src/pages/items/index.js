@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-const Post = () => {
+const Item = () => {
   const [count, setCount] = useState(0);
 
   return (
@@ -13,4 +13,4 @@ const Post = () => {
   );
 };
 
-export default Post;
+export default Item;
