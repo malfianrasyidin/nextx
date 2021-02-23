@@ -1,18 +1,15 @@
 import 'styles/index.scss';
+import { createStore } from 'redux';
+import reducers from 'redux/reducers';
+import { Provider } from 'react-redux'
+
+const store = createStore(reducers)
 
 const App = ({ Component, pageProps }) => (
   <div className="app">
-    <Component {...pageProps} />
-    <script
-      src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
-      integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
-      crossOrigin="anonymous"
-    ></script>
-    <script
-      src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"
-      integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns"
-      crossOrigin="anonymous"
-    ></script>
+    <Provider store={store}>
+      <Component {...pageProps} />
+    </Provider>
   </div>
 );
 

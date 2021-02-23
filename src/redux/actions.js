@@ -5,6 +5,7 @@ export const putItem = (item) => ({
   item,
 });
 
-export const removeItem = () => ({
+export const removeItem = (item) => ({
   type: REMOVE_ITEM,
+  item,
 });

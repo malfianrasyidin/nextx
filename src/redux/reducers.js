@@ -1,24 +1,28 @@
 import { PUT_ITEM, REMOVE_ITEM } from 'redux/types';
 
 const initialState = {
-  items: []
+  items: [],
 };
 
-const putItem = (state, action) => Object.assign({}, state, {
-  items: state.items.push(action.item)
-});
+const putItem = (state, action) =>
+  Object.assign({}, state, {
+    items: state.items.concat(action.item),
+  });
 
-const removeItem = (state) => Object.assign({}, state, {
-  items: state.items.pop()
-});
+const removeItem = (state, action) =>
+  Object.assign({}, state, {
+    items: state.items.filter((value, index) => index !== action.item),
+  });
 
-const reducer = (state = initialState, action) => {
+const reducers = (state = initialState, action) => {
   switch (action.type) {
     case PUT_ITEM:
       return putItem(state, action);
     case REMOVE_ITEM:
-      return removeItem(state);
+      return removeItem(state, action);
     default:
       return state;
   }
 };
+
+export default reducers;
