@@ -1,14 +1,14 @@
 import 'styles/index.scss';
-import { createStore } from 'redux';
-import reducers from 'redux/reducers';
-import { Provider } from 'react-redux'
-
-const store = createStore(reducers)
+import Store from 'context';
+import store from 'config/redux';
+import { Provider } from 'react-redux';
 
 const App = ({ Component, pageProps }) => (
   <div className="app">
     <Provider store={store}>
-      <Component {...pageProps} />
+      <Store>
+        <Component {...pageProps} />
+      </Store>
     </Provider>
   </div>
 );

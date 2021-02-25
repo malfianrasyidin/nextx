@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import { connect } from 'react-redux';
-import { putItem, removeItem } from 'redux/actions';
+import { Action, Type } from 'config/redux';
 
-const Item = ({ items, putItem, removeItem }) => {
+const ItemPage = ({ items, addItem, removeItem }) => {
   const [input, setInput] = useState('');
 
   return (
@@ -11,7 +11,7 @@ const Item = ({ items, putItem, removeItem }) => {
         <input onChange={(e) => setInput(e.target.value)} value={input ?? ''} />
         <button
           onClick={() => {
-            putItem(input);
+            addItem(items.concat(input));
             setInput('');
           }}
         >
@@ -25,7 +25,9 @@ const Item = ({ items, putItem, removeItem }) => {
               {value}
               <span
                 className="font-weight-bold"
-                onClick={() => removeItem(index)}
+                onClick={() =>
+                  removeItem(items.filter((val, idx) => idx !== index))
+                }
               >{` | Delete`}</span>
             </li>
           ))}
@@ -44,8 +46,8 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = (dispatch) => ({
-  putItem: (item) => dispatch(putItem(item)),
-  removeItem: (item) => dispatch(removeItem(item)),
+  addItem: (payload) => dispatch(Action(Type.Items, payload)),
+  removeItem: (payload) => dispatch(Action(Type.Items, payload)),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Item);
+export default connect(mapStateToProps, mapDispatchToProps)(ItemPage);
