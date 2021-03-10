@@ -6,7 +6,6 @@ test:
   image: node:12-alpine
   allow_failure: false
   script:
-    - npm i -g yarn
     - yarn install
     - yarn lint
     - yarn test
