@@ -1,6 +1,6 @@
 stages:
   - test
-  - build
+  - deploy
 
 test:
   stage: test
@@ -14,18 +14,11 @@ test:
     paths:
       - node_modules
 
-build:
-  stage: build
-  image: node:12-alpine
-  allow_failure: false
+deploy:
+  stage: deploy
+  image: ruby:latest
   script:
-    - yarn install
-    - yarn build
-  cache:
-    paths:
-      - node_modules
-  artifacts:
-    name: '$CI_PROJECT_NAME-$CI_BUILD_REF'
-    paths:
-      - build
-    expire_in: 1 week
+    - apt-get update -qy
+    - apt-get install -y ruby-dev
+    - gem install dpl
+    - dpl --provider=heroku --app=$HEROKU_APP_NAME --api-key=$HEROKU_API_KEY

@@ -20,7 +20,10 @@ jobs:
         run: yarn install
       - name: Run tests
         run: yarn lint && yarn test
-      - name: Build package
-        run: yarn build
-      - name: Prepare artifacts
-        run: tar -czvf ${{ github.sha }}.tar.gz build/
+      - name: Deploy to heroku
+        uses: akhileshns/heroku-deploy@v3.12.12
+        with:
+          heroku_email: ${{ secrets.HEROKU_EMAIL }}
+          heroku_api_key: ${{ secrets.HEROKU_API_KEY }}
+          heroku_app_name: ${{ secrets.HEROKU_APP_NAME }}
+          
