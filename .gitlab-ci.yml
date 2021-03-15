@@ -1,5 +1,6 @@
 stages:
   - test
+  - build
 
 test:
   stage: test
@@ -12,3 +13,19 @@ test:
   cache:
     paths:
       - node_modules
+
+build:
+  stage: build
+  image: node:12-alpine
+  allow_failure: false
+  script:
+    - yarn install
+    - yarn build
+  cache:
+    paths:
+      - node_modules
+  artifacts:
+    name: '$CI_PROJECT_NAME-$CI_BUILD_REF'
+    paths:
+      - build
+    expire_in: 1 week
